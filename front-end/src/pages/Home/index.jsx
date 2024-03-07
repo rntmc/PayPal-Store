@@ -1,26 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { saveDataToLocalStorage, getDataFromLocalStorage } from '../../../../back-end/localStorage';
 
-import {ProductSection , BuyerInfoSection , Content, Product, BuyerInfo, Background, Header, Footer} from './styles'
+import { ProductSection, BuyerInfoSection, Content, Product, BuyerInfo, Background, Header, Footer } from './styles';
 
 import productImage from '../../assets/laptop.jpg';
 
+
 export function Home() {
-  const [buyerInfo, setBuyerInfo] = useState({
+  // Estado para armazenar as informações do comprador
+  const [buyerInfo, setBuyerInfo] = useState(getDataFromLocalStorage('buyerInfo') || {
     firstName: '',
     lastName: '',
     email: '',
     phoneNumber: '',
     addressLine1: '',
     addressLine2: '',
-    state: '',
-    zipCode: '',
+    stateOrProvince: '',
+    zipOrPostalCode: '',
     country: 'United States',
   });
 
+  // Função para lidar com a mudança nos campos de entrada
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setBuyerInfo({ ...buyerInfo, [name]: value });
   };
+
+  // Função para lidar com o salvamento das informações
+  const handleSave = () => {
+    saveDataToLocalStorage('buyerInfo', buyerInfo);
+    alert('Buyer info saved successfully!');
+  };
+
 
   return (
     <Background>
@@ -33,11 +45,15 @@ export function Home() {
             <img src={productImage} alt="Product" />
             <div>
               <h2>Product Details</h2>
-              <p>Name: Product Name</p>
-              <p>Item Number: 123456</p>
-              <p>Price: $19.99</p>
+              <p>Name: Notebook</p>
+              <p>Price: $250.00</p>
+              <p>Quantity: 1</p>
+              <p>Sku: 5651251</p>
             </div>
           </Product>
+          <PayPalScriptProvider>
+            <PayPalButtons />
+          </PayPalScriptProvider>
         </ProductSection>
         <BuyerInfoSection>
           <BuyerInfo>
@@ -86,17 +102,17 @@ export function Home() {
             />
             <input
               type="text"
-              name="state"
-              value={buyerInfo.state}
+              name="stateOrProvince"
+              value={buyerInfo.stateOrProvince}
               onChange={handleInputChange}
               placeholder="State or Province"
             />
             <input
               type="text"
-              name="zipCode"
-              value={buyerInfo.zipCode}
+              name="zipOrPostalCode"
+              value={buyerInfo.zipOrPostalCode}
               onChange={handleInputChange}
-              placeholder="Zip or Postal Code"
+              placeholder="ZIP or Postal Code"
             />
             <input
               type="text"
@@ -104,13 +120,14 @@ export function Home() {
               value={buyerInfo.country}
               onChange={handleInputChange}
               placeholder="Country"
-              disabled
+              disabled // Disable to enforce 'United States'
             />
+            <button onClick={handleSave}>Save</button>
           </BuyerInfo>
         </BuyerInfoSection>
       </Content>
       <Footer>
-        <p>© 2024 Shopping Cart. Todos os direitos reservados.</p>
+        <p>© 2024 Shopping Cart. All rights reserved.</p>
       </Footer>
     </Background>
   );
