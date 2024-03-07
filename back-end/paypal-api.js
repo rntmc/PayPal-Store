@@ -14,21 +14,21 @@ async function generateAccessToken() {
     body: "grant_type=client_credentials",
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': "Basic " + Buffer.from(PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET).toString("base64"), 
+      Authorization: "Basic " + Buffer.from(PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET).toString("base64"), 
     }
   });
   const data = await response.json();
   return data.access_token;
 };
 
-export async function createOrder() {
+export async function createOrder(data) {
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders`
   const response = await fetch(url, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken},`
+      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
       intent: "CAPTURE",
@@ -36,15 +36,14 @@ export async function createOrder() {
         {
           amount: {
             currency_code: "USD",
-            value: "250.00",
-          }
-        }
-      ]
-    })
+            value: data.product.cost, //from PayPalPayment.jsx
+          },
+        },
+      ],
+    }),
   });
-  const data = await response.json();
-  console.log(data)
-  return data;
+  const jsonResponse = await response.json();
+  return jsonResponse;
 }
 
 export async function capturePayment(orderId) {
@@ -54,7 +53,7 @@ export async function capturePayment(orderId) {
     method: "post",
     headers: {
       "Content-Type": "application/json",
-      'Authorization': `Bearer ${accessToken},`
+      Authorization: `Bearer ${accessToken},`
     },
   });
   const data = await response.json();
