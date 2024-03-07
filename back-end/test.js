@@ -1,9 +1,8 @@
-const paypal = require("./server.js");
+import * as paypal from './paypal-api.js';
 
-main();
+main()
 
 async function main() {
   let order = await paypal.createOrder();
   paypal.capturePayment(order.id)
-  console.log(order.id)
 }
