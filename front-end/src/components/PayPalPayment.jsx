@@ -2,8 +2,10 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 
 export function PayPalPayment() {
 
+  const serverUrl = "http://localhost:8888"
+
   function createOrder(data) {
-    return fetch("/my-server/create-paypal-order", {
+    return fetch(`${serverUrl}/my-server/create-paypal-order`, {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
@@ -25,7 +27,8 @@ export function PayPalPayment() {
   .then((order) => order.id);
   }
   function onApprove(data) {
-    return fetch("/my-server/capture-paypal-order", {
+    console.log(data)
+    return fetch(`${serverUrl}/my-server/capture-paypal-order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,10 +42,10 @@ export function PayPalPayment() {
 
   return (
     <PayPalButtons
-      // createOrder={(data) => createOrder(data, actions)}
-      // onApprove={(data) => onApprove(data, actions)}
-      createOrder={createOrder}
-      onApprove={onApprove}
+      createOrder={(data, actions) => createOrder(data, actions)}
+      onApprove={(data, actions) => onApprove(data, actions)}
+      // createOrder={createOrder}
+      // onApprove={onApprove}
     />
   )
 }

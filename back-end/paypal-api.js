@@ -24,6 +24,7 @@ async function generateAccessToken() {
 export async function createOrder(data) {
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders`
+  console.log("createorder log:", data)
   const response = await fetch(url, {
     method: "post",
     headers: {
@@ -36,13 +37,14 @@ export async function createOrder(data) {
         {
           amount: {
             currency_code: "USD",
-            value: data.product.cost, //from PayPalPayment.jsx
+            value: data.product[0].cost, //from PayPalPayment.jsx
           },
         },
       ],
     }),
   });
   const jsonResponse = await response.json();
+  console.log(jsonResponse)
   return jsonResponse;
 }
 
