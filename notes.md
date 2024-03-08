@@ -20,6 +20,6 @@ To Do list
     [x] Pagamento deve iniciar ao clicar no botao mencionado acima, que iniciara o setup da API do PayPal
     [] Informacao do comprador (Dados + Endereco) devem ser transmitidos ao PayPal para evitar que usuario insira essa informacao novamente (Entretanto usuario com endereco de entrega diferente pod eser possivel no checkout)
     [x] Apos a aprovacao do pagamento pelo PayPal, o servidor deve executar o pagamento de modo a criar a transacao.
-    [] Uma mensagem de "thank you" apos finalizar a compra
+    [x] Uma mensagem de "thank you" apos finalizar a compra
     [] Os dados da compra (incluso transaction ID) deve ser mostrada ao usuario na mensagem
     [] Subir o projeto numa nuvem publica

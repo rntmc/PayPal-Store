@@ -1,5 +1,6 @@
+import {Toaster} from 'react-hot-toast'
 import { useState } from 'react';
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { saveDataToLocalStorage, getDataFromLocalStorage } from '../../../../back-end/localStorage';
 
 import { ProductSection, BuyerInfoSection, Content, Product, BuyerInfo, Background, Header, Footer } from './styles';
@@ -23,7 +24,7 @@ export function Home() {
     addressLine2: '',
     stateOrProvince: '',
     zipOrPostalCode: '',
-    country: 'United States',
+    country: 'US',
   });
 
   // Função para lidar com a mudança nos campos de entrada
@@ -40,7 +41,8 @@ export function Home() {
 
 
   return (
-    <PayPalScriptProvider options={initialOptions}>
+    <PayPalScriptProvider options={initialOptions} >
+      <Toaster/>
       <Background>
         <Header>
           <h1>Shopping Cart</h1>
@@ -58,7 +60,7 @@ export function Home() {
               </div>
             </Product>
 
-            <PayPalPayment />
+            <PayPalPayment buyerInfo={buyerInfo}/>
             
           </ProductSection>
           <BuyerInfoSection>
@@ -104,7 +106,7 @@ export function Home() {
                 name="addressLine2"
                 value={buyerInfo.addressLine2}
                 onChange={handleInputChange}
-                placeholder="Address Line 2"
+                placeholder="City"
               />
               <input
                 type="text"

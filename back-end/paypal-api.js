@@ -38,13 +38,27 @@ export async function createOrder(data) {
           amount: {
             currency_code: "USD",
             value: data.product[0].cost, //from PayPalPayment.jsx
+            quantity: 1,
+          },
+          shipping: {
+            name: {
+              full_name: data.buyerInfo.firstName + " " + data.buyerInfo.lastName
+            },
+            address:{
+              address_line_1: data.buyerInfo.addressLine1,
+              address_line_2: data.buyerInfo.addressLine2,
+              admin_area_2: data.buyerInfo.stateOrProvince,
+              admin_area_1: data.buyerInfo.stateOrProvince,
+              postal_code: data.buyerInfo.zipOrPostalCode,
+              country_code: data.buyerInfo.country,
+            },
           },
         },
       ],
     }),
   });
   const jsonResponse = await response.json();
-  console.log(jsonResponse)
+  console.log("jsonResponse:", jsonResponse)
   return jsonResponse;
 }
 
@@ -59,6 +73,6 @@ export async function capturePayment(orderId) {
     },
   });
   const data = await response.json();
-  console.log(data)
+  console.log("Dados do pagamento capturado:", data)
   return data;
 }

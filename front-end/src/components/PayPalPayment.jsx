@@ -1,10 +1,13 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
+import toast from 'react-hot-toast'
 
-export function PayPalPayment() {
+export function PayPalPayment({ buyerInfo }) {
 
   const serverUrl = "http://localhost:8888"
 
   function createOrder(data) {
+    const buyerInfo = JSON.parse(localStorage.getItem('buyerInfo'))
+
     return fetch(`${serverUrl}/my-server/create-paypal-order`, {
       method: "POST",
       headers: {
@@ -16,18 +19,19 @@ export function PayPalPayment() {
         product: [ //cart
           {
             description: "Brand new laptop",
-            cost: "250.00"
+            cost: "30.00",
             // id: "YOUR_PRODUCT_ID",
             // quantity: "YOUR_PRODUCT_QUANTITY",
           },
         ],
+        buyerInfo: buyerInfo,
       }),
     })
   .then((response) => response.json())
   .then((order) => order.id);
   }
   function onApprove(data) {
-    console.log(data)
+    // console.log("onApprove:", data)
     return fetch(`${serverUrl}/my-server/capture-paypal-order`, {
       method: "POST",
       headers: {
@@ -38,6 +42,19 @@ export function PayPalPayment() {
       })
     })
     .then((response) => response.json())
+    .then((response) => {
+      // Show success message
+      console.log("response do onApprove:", response)
+      toast.success(`Thank you ${response.payer.name.given_name + " " + response.payer.name.surname} for your purchase!
+        Your order ID is: ${response.id}\n`, {
+          duration: 6000
+        });
+    })
+    .catch((error) => {
+      // Handle error
+      console.error('Error capturing PayPal order:', error);
+      toast.error('Error processing your payment. Please try again.');
+    });
   }
 
   return (
