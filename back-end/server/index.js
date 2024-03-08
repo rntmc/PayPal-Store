@@ -22,6 +22,7 @@ app.post("/my-server/create-paypal-order", async (req, res) => {
 
 app.post("/my-server/capture-paypal-order", async (req, res) => {
   const { orderID } = req.body;
+  console.log("orderID de server.js:", orderID)
   try {
     const captureData = await paypal.capturePayment(orderID);
     res.json(captureData);

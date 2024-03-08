@@ -23,8 +23,8 @@ async function generateAccessToken() {
 
 export async function createOrder(data) {
   const accessToken = await generateAccessToken();
+  console.log("Dados recebidos em createOrder:", data);
   const url = `${base}/v2/checkout/orders`
-  console.log("createorder log:", data)
   const response = await fetch(url, {
     method: "post",
     headers: {
@@ -37,18 +37,18 @@ export async function createOrder(data) {
         {
           amount: {
             currency_code: "USD",
-            value: data.product[0].cost, //from PayPalPayment.jsx
-            quantity: 1,
+            value: Number(data.product[0].cost * data.product[0].quantity), //from PayPalPayment.jsx
+            quantity: data.product[0].quantity,
+            sku: data.product[0].sku,
           },
           shipping: {
             name: {
-              full_name: data.buyerInfo.firstName + " " + data.buyerInfo.lastName
+              full_name: data.buyerInfo.firstName + " " + data.buyerInfo.lastName,
             },
-            address:{
+            address: {
               address_line_1: data.buyerInfo.addressLine1,
-              address_line_2: data.buyerInfo.addressLine2,
-              admin_area_2: data.buyerInfo.stateOrProvince,
               admin_area_1: data.buyerInfo.stateOrProvince,
+              admin_area_2: data.buyerInfo.addressLine2,
               postal_code: data.buyerInfo.zipOrPostalCode,
               country_code: data.buyerInfo.country,
             },
@@ -62,7 +62,7 @@ export async function createOrder(data) {
   return jsonResponse;
 }
 
-export async function capturePayment(orderId) {
+export async function capturePayment(orderId ) {
   const accessToken = await generateAccessToken();
   const url = `${base}/v2/checkout/orders/${orderId}/capture`
   const response = await fetch(url, {

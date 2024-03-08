@@ -1,68 +1,78 @@
-import { PayPalButtons } from "@paypal/react-paypal-js";
-import toast from 'react-hot-toast'
+import express from "express";
+import "dotenv/config";
 
-export function PayPalPayment({ buyerInfo }) {
+const app = express();
 
-  const serverUrl = "http://localhost:8888"
+app.use(express.json());
 
-  function createOrder(data) {
-    const buyerInfo = JSON.parse(localStorage.getItem('buyerInfo'))
+const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
+const base = "https://api-m.sandbox.paypal.com";
 
-    return fetch(`${serverUrl}/my-server/create-paypal-order`, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      // use the "body" param to optionally pass additional order information
-      // like product ids and quantities
-      body: JSON.stringify({
-        product: [ //cart
-          {
-            description: "Brand new laptop",
-            cost: "30.00",
-            // id: "YOUR_PRODUCT_ID",
-            // quantity: "YOUR_PRODUCT_QUANTITY",
+async function generateAccessToken() {
+  const response = await fetch(base + "/v1/oauth2/token", {
+    method: "post",
+    body: "grant_type=client_credentials",
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: "Basic " + Buffer.from(PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET).toString("base64"), 
+    }
+  });
+  const data = await response.json();
+  return data.access_token;
+};
+
+export async function createOrder(data) {
+  const accessToken = await generateAccessToken();
+  console.log("Dados recebidos em createOrder:", data);
+  const url = `${base}/v2/checkout/orders`
+  const response = await fetch(url, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      intent: "CAPTURE",
+      purchase_units: [
+        {
+          amount: {
+            currency_code: "USD",
+            value: Number(data.product[0].cost * data.product[0].quantity), //from PayPalPayment.jsx
+            quantity: data.product[0].quantity,
+            sku: data.product[0].sku,
           },
-        ],
-        buyerInfo: buyerInfo,
-      }),
-    })
-  .then((response) => response.json())
-  .then((order) => order.id);
-  }
-  function onApprove(data) {
-    // console.log("onApprove:", data)
-    return fetch(`${serverUrl}/my-server/capture-paypal-order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        orderID: data.orderID,
-      })
-    })
-    .then((response) => response.json())
-    .then((response) => {
-      // Show success message
-      console.log("response do onApprove:", response)
-      toast.success(`Thank you ${response.payer.name.given_name + " " + response.payer.name.surname} for your purchase!
-        Your order ID is: ${response.id}\n`, {
-          duration: 6000
-        });
-    })
-    .catch((error) => {
-      // Handle error
-      console.error('Error capturing PayPal order:', error);
-      toast.error('Error processing your payment. Please try again.');
-    });
-  }
+          shipping: {
+            name: {
+              full_name: data.buyerInfo.firstName + " " + data.buyerInfo.lastName,
+            },
+            address: {
+              address_line_1: data.buyerInfo.addressLine1,
+              admin_area_1: data.buyerInfo.stateOrProvince,
+              admin_area_2: data.buyerInfo.addressLine2,
+              postal_code: data.buyerInfo.zipOrPostalCode,
+              country_code: data.buyerInfo.country,
+            },
+          },
+        },
+      ],
+    }),
+  });
+  const jsonResponse = await response.json();
+  console.log("jsonResponse:", jsonResponse)
+  return jsonResponse;
+}
 
-  return (
-    <PayPalButtons
-      createOrder={(data, actions) => createOrder(data, actions)}
-      onApprove={(data, actions) => onApprove(data, actions)}
-      // createOrder={createOrder}
-      // onApprove={onApprove}
-    />
-  )
+export async function capturePayment(orderId ) {
+  const accessToken = await generateAccessToken();
+  const url = `${base}/v2/checkout/orders/${orderId}/capture`
+  const response = await fetch(url, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken},`
+    },
+  });
+  const data = await response.json();
+  console.log("Dados do pagamento capturado:", data)
+  return data;
 }

@@ -1,8 +1,3 @@
-  Processes:
-  1. User get Token
-  2. 
-
-
 To Do list
 
   Front-end
