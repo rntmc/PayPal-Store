@@ -36,8 +36,22 @@ export function Home() {
 
   // Função para lidar com o salvamento das informações
   const handleSave = () => {
-    saveDataToLocalStorage('buyerInfo', buyerInfo);
-    alert('Buyer info saved successfully!');
+    // Verificar se todos os campos estão preenchidos antes de salvar
+    if (
+      buyerInfo.firstName.trim() !== "" &&
+      buyerInfo.lastName.trim() !== "" &&
+      buyerInfo.email.trim() !== "" &&
+      buyerInfo.phoneNumber.trim() !== "" &&
+      buyerInfo.addressLine1.trim() !== "" &&
+      buyerInfo.city.trim() !== "" &&
+      buyerInfo.stateOrProvince.trim() !== "" &&
+      buyerInfo.zipOrPostalCode.trim() !== ""
+    ) {
+      saveDataToLocalStorage('buyerInfo', buyerInfo);
+      alert('Buyer info saved successfully!');
+    } else {
+      alert('Please fill in all required fields.');
+    }
   };
 
 
@@ -67,6 +81,8 @@ export function Home() {
           <BuyerInfoSection>
             <BuyerInfo>
               <h2>Buyer Information</h2>
+              <p> Please fill out every box below to proceed to checkout</p>
+
               <input
                 type="text"
                 name="firstName"
