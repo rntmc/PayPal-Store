@@ -1,5 +1,6 @@
 import express from "express";
 import "dotenv/config";
+import { v4 as uuidv4 } from 'uuid'
 
 const app = express();
 
@@ -35,6 +36,7 @@ export async function createOrder(data) {
       intent: "CAPTURE",
       purchase_units: [
         {
+          reference_id: uuidv4(),
           amount: {
             currency_code: "USD",
             value: Number(data.product[0].cost * data.product[0].quantity), //from PayPalPayment.jsx
@@ -57,6 +59,9 @@ export async function createOrder(data) {
       ],
     }),
   });
+  console.log("UUID gerado:", uuidv4());
+  console.log("Resposta do PayPal:", response);
+  
   const jsonResponse = await response.json();
   console.log("jsonResponse:", jsonResponse)
   return jsonResponse;
