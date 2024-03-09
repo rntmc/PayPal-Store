@@ -60,7 +60,7 @@ export async function createOrder(data) {
           },
         },
       ],
-      payer: {  // Adicionando o objeto payer com os dados do comprador
+      payer: { 
         email_address: data.buyerInfo.email,
         name: {
           given_name: data.buyerInfo.firstName,

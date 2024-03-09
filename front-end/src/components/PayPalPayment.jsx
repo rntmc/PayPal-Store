@@ -1,7 +1,9 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
 
 export function PayPalPayment() {
+  const navigate = useNavigate();
   const serverUrl = "http://localhost:8888"
 
   function createOrder(data) {
@@ -19,7 +21,7 @@ export function PayPalPayment() {
           {
             description: "Brand new laptop",
             cost: "30.00",
-            quantity: 2,
+            quantity: 3,
             sku: 5651251,
           },
         ],
@@ -55,6 +57,7 @@ export function PayPalPayment() {
         Your order ID is: ${response.id}\n`, {
           duration: 6000
         });
+      navigate('/thank-you')
     })
     .catch((error) => {
       // Handle error

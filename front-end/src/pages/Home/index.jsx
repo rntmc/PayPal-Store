@@ -22,6 +22,7 @@ export function Home() {
     phoneNumber: '',
     addressLine1: '',
     addressLine2: '',
+    city: '',
     stateOrProvince: '',
     zipOrPostalCode: '',
     country: 'US',
@@ -105,6 +106,13 @@ export function Home() {
                 type="text"
                 name="addressLine2"
                 value={buyerInfo.addressLine2}
+                onChange={handleInputChange}
+                placeholder="complement"
+              />
+              <input
+                type="text"
+                name="city"
+                value={buyerInfo.city}
                 onChange={handleInputChange}
                 placeholder="City"
               />
