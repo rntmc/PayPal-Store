@@ -23,7 +23,6 @@ export function Home() {
     email: '',
     phoneNumber: '',
     addressLine1: '',
-    addressLine2: '',
     city: '',
     stateOrProvince: '',
     zipOrPostalCode: '',
@@ -179,7 +178,7 @@ export function Home() {
                 name="addressLine2"
                 value={buyerInfo.addressLine2}
                 onChange={handleInputChange}
-                placeholder="complement"
+                placeholder="Address Line 2"
               />
               <input
                 type="text"
