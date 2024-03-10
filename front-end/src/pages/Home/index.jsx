@@ -8,13 +8,15 @@ import {PayPalPayment} from '../../components/PayPalPayment'
 import productImage from '../../assets/laptop.jpg';
 
 export function Home() {
+  const [error, setError] = useState('');
+
   const initialOptions = {
     clientId: "ATm10hXzzOxe-ZwrZRQY5fsj_tJ6h_FLztLTWsgeKm61hfORI4jmhC0X8Me790nOq_c1OrsEfxSBIUaz",
     currency: "USD",
     intent: "capture",
   };
 
-  // Estado para armazenar as informações do comprador
+  // Save user information in LocalStorage
   const [buyerInfo, setBuyerInfo] = useState(getDataFromLocalStorage('buyerInfo') || {
     firstName: '',
     lastName: '',
@@ -25,35 +27,89 @@ export function Home() {
     city: '',
     stateOrProvince: '',
     zipOrPostalCode: '',
-    country: 'US',
+    country: 'USA',
   });
 
-  // Função para lidar com a mudança nos campos de entrada
+  // Change input data
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setBuyerInfo({ ...buyerInfo, [name]: value });
   };
 
-  // Função para lidar com o salvamento das informações
-  const handleSave = () => {
-    // Verificar se todos os campos estão preenchidos antes de salvar
-    if (
-      buyerInfo.firstName.trim() !== "" &&
-      buyerInfo.lastName.trim() !== "" &&
-      buyerInfo.email.trim() !== "" &&
-      buyerInfo.phoneNumber.trim() !== "" &&
-      buyerInfo.addressLine1.trim() !== "" &&
-      buyerInfo.city.trim() !== "" &&
-      buyerInfo.stateOrProvince.trim() !== "" &&
-      buyerInfo.zipOrPostalCode.trim() !== ""
-    ) {
-      saveDataToLocalStorage('buyerInfo', buyerInfo);
-      alert('Buyer info saved successfully!');
-    } else {
-      alert('Please fill in all required fields.');
+  // Save data
+  const handleSave = async () => {
+    setError('');
+    try {
+      if (
+        buyerInfo.firstName.trim() !== "" &&
+        buyerInfo.lastName.trim() !== "" &&
+        buyerInfo.email.trim() !== "" &&
+        buyerInfo.phoneNumber.trim() !== "" &&
+        buyerInfo.addressLine1.trim() !== "" &&
+        buyerInfo.city.trim() !== "" &&
+        buyerInfo.stateOrProvince.trim() !== "" &&
+        buyerInfo.zipOrPostalCode.trim() !== ""
+      ) {
+        const validatedAddress = await validateAddress(buyerInfo);
+        if (validatedAddress && validatedAddress.status === 'OK') {
+          // Valid address. Save data into locaStorage
+          saveDataToLocalStorage('buyerInfo', buyerInfo);
+          alert('Buyer info saved successfully!');
+        } else {
+          setError('Endereço inválido. Por favor, verifique e tente novamente.');
+        }
+      } else {
+        setError('Por favor, preencha todos os campos obrigatórios.');
+      }
+    } catch (error) {
+      setError('Erro ao validar o endereço. Por favor, tente novamente.');
     }
   };
 
+  const validateAddress = async (addressInfo) => {
+    const apiKey = 'AIzaSyBeNCyfRVOgIW_F2QNeDjZtLBRrkolF9GQ';
+    const addressString = `${addressInfo.addressLine1}, ${addressInfo.city}, ${addressInfo.stateOrProvince}, ${addressInfo.zipOrPostalCode}, ${addressInfo.country}`;
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(addressString)}&key=${apiKey}`;
+  
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Erro ao validar o endereço. Resposta não foi bem-sucedida.');
+      }
+      const data = await response.json();
+  
+      console.log('Response from Google Maps Geocoding API:', data);
+  
+      // Verificar se o status da resposta é "OK"
+      if (data.status === 'OK') {
+        // Verificar se a resposta contém resultados
+        if (data.results.length > 0) {
+          // Acessar o endereço formatado
+          const formattedAddress = data.results[0].formatted_address;
+          console.log('Formatted Address:', formattedAddress);
+  
+          // Verificar se o endereço formatado corresponde ao endereço fornecido pelo usuário
+          const providedAddress = `${addressInfo.addressLine1}, ${addressInfo.city}, ${addressInfo.stateOrProvince} ${addressInfo.zipOrPostalCode}, ${addressInfo.country}`;
+          console.log("providedAddress:", providedAddress)
+
+          if (formattedAddress.toLowerCase() === providedAddress.toLowerCase()) {
+            // Valid address
+            return data;
+          } else {
+            throw new Error('Endereço inválido. Por favor, verifique e tente novamente.');
+          }
+        } else {
+          throw new Error('Nenhum resultado encontrado para o endereço fornecido.');
+        }
+      } else {
+        throw new Error(`Status da resposta: ${data.status}`);
+      }
+    } catch (error) {
+      throw new Error(`Erro ao validar o endereço: ${error.message}`);
+    }
+};
+
+  
 
   return (
     <PayPalScriptProvider options={initialOptions} >
@@ -154,6 +210,7 @@ export function Home() {
                 placeholder="Country"
                 disabled 
               />
+              {error && <p style={{ color: 'red' }}>{error}</p>}
               <button onClick={handleSave} type='button'>Save</button>
             </BuyerInfo>
           </BuyerInfoSection>
