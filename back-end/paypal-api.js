@@ -55,7 +55,7 @@ export async function createOrder(data) {
               admin_area_1: data.buyerInfo.stateOrProvince,
               admin_area_2: data.buyerInfo.city,
               postal_code: data.buyerInfo.zipOrPostalCode,
-              country_code: data.buyerInfo.country,
+              country_code: "US",
             },
           },
         },
@@ -78,7 +78,7 @@ export async function createOrder(data) {
           admin_area_1: data.buyerInfo.stateOrProvince,
           admin_area_2: data.buyerInfo.city,
           postal_code: data.buyerInfo.zipOrPostalCode,
-          country_code: data.buyerInfo.country,
+          country_code: "US",
         }
       }
     }),
