@@ -20,8 +20,8 @@ export function PayPalPayment() {
         product: [ //cart
           {
             description: "Brand new laptop",
-            cost: "30.00",
-            quantity: 3,
+            cost: "250.00",
+            quantity: 1,
             sku: 5651251,
           },
         ],
@@ -53,11 +53,17 @@ export function PayPalPayment() {
     .then((response) => {
       // Show success message
       console.log("response do onApprove:", response)
-      toast.success(`Thank you ${response.payer.name.given_name + " " + response.payer.name.surname} for your purchase!
-        Your order ID is: ${response.id}\n`, {
+      const paymentValue = response.purchase_units[0].payments.captures[0].amount.value;
+      toast.success(`${response.payer.name.given_name + " " + response.payer.name.surname}, thank you for your purchase!\n
+        Your order ID is: ${response.id}
+        Product: Brand new Laptop
+        Quantity: 1
+        sku: 5651251
+        Total cost: USD ${paymentValue}
+        `, {
           duration: 6000
         });
-      navigate('/thank-you')
+      // navigate('/thank-you')
     })
     .catch((error) => {
       // Handle error
