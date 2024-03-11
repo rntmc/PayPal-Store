@@ -6,7 +6,11 @@ export function PayPalPayment() {
 
   function createOrder(data) {
     const buyerInfo = JSON.parse(localStorage.getItem('buyerInfo'))
-
+    if (!buyerInfo) {
+      toast.error('Failed to create order: Buyer information is missing');
+      return;
+    }
+    
     return fetch(`${serverUrl}/my-server/create-paypal-order`, {
       method: "POST",
       headers: {
