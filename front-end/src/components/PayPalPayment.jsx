@@ -59,6 +59,7 @@ export function PayPalPayment() {
       toast.success(`${response.payer.name.given_name + " " + response.payer.name.surname}, thank you for your purchase!\n
         Your order ID is: ${response.id}
         Product: Brand new laptop
+        Product: Brand new laptop
         Quantity: 1
         sku: 5651251
         Total cost: USD ${paymentValue}
