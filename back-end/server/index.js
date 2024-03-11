@@ -32,6 +32,4 @@ app.post("/my-server/capture-paypal-order", async (req, res) => {
   }
 });
 
-app.listen(SERVER_URL, () => {
-  console.log(`Server listening at ${SERVER_URL}`);
-});
+console.log(`Server is ready to handle requests at ${SERVER_URL}`);
