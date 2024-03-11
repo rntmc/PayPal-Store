@@ -1,6 +1,6 @@
 # PayPal-Store
 
-This project is an application that simulates the process of purchasing a product using the PayPal payment method. It was developed using the PayPal sandbox environment for testing purposes.
+This project is an application that simulates the process of purchasing a product using the PayPal payment method. It was developed using the PayPal sandbox environment.
 
 ## Features
 - The customer fills in their details on the initial screen, including name, email, phone number, and full address.
