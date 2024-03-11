@@ -1,9 +1,7 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
-import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
 
 export function PayPalPayment() {
-  const navigate = useNavigate();
   const serverUrl = "http://localhost:8888"
 
   function createOrder(data) {

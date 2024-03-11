@@ -4,7 +4,7 @@ To Do list
     [x] Pagina contendo Imagem, descricao, numero e preco
     [x] Formulario com os dados do comprador (first and last name, email, phone)
     [x] Formulario contendo dados do envio (address line 1 and 2, state or province, zip or postal code, country)
-    [] Assegurar que o endereco e valido para os EUA
+    [x] Assegurar que o endereco e valido para os EUA
     [x] Informacoes do usuario podem ser editadas no form
     [x] Botao do PayPal para iniciar o processo de pagamento e esse botao deve ser renderizado pelo SDK do PayPal (paypal.com/sdk/js)
 
@@ -16,5 +16,5 @@ To Do list
     [x] Informacao do comprador (Dados + Endereco) devem ser transmitidos ao PayPal para evitar que usuario insira essa informacao novamente (Entretanto usuario com endereco de entrega diferente pod eser possivel no checkout)
     [x] Apos a aprovacao do pagamento pelo PayPal, o servidor deve executar o pagamento de modo a criar a transacao.
     [x] Uma mensagem de "thank you" apos finalizar a compra
-    [] Os dados da compra (incluso transaction ID) deve ser mostrada ao usuario na mensagem
+    [x] Os dados da compra (incluso transaction ID) deve ser mostrada ao usuario na mensagem
     [] Subir o projeto numa nuvem publica

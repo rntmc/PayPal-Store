@@ -1,7 +1,7 @@
 import {Toaster} from 'react-hot-toast'
 import { useState } from 'react';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import { saveDataToLocalStorage, getDataFromLocalStorage } from '../../../../back-end/localStorage';
+import { saveDataToLocalStorage, getDataFromLocalStorage } from '../../localStorage';
 
 import { ProductSection, BuyerInfoSection, Content, Product, BuyerInfo, Background, Header, Footer } from './styles';
 import {PayPalPayment} from '../../components/PayPalPayment'
@@ -209,7 +209,7 @@ export function Home() {
                 placeholder="Country"
                 disabled 
               />
-              {error && <p style={{ color: 'red' }}>{error}</p>}
+              {error && <p style={{ color: 'red', fontSize: '18px', fontWeight: 'bold' }}>{error}</p>}
               <button onClick={handleSave} type='button'>Save</button>
             </BuyerInfo>
           </BuyerInfoSection>

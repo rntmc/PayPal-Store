@@ -1,4 +1,3 @@
-import "dotenv/config";
 import express from "express";
 import * as paypal from '../paypal-api.js';
 import cors from 'cors'
