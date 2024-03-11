@@ -1,4 +1,4 @@
-import {Toaster} from 'react-hot-toast'
+import {toast, Toaster} from 'react-hot-toast'
 import { useState } from 'react';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { saveDataToLocalStorage, getDataFromLocalStorage } from '../../localStorage';

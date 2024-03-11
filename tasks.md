@@ -1,20 +1,20 @@
-To Do list
+## To Do list
 
-  Front-end
-    [x] Pagina contendo Imagem, descricao, numero e preco
-    [x] Formulario com os dados do comprador (first and last name, email, phone)
-    [x] Formulario contendo dados do envio (address line 1 and 2, state or province, zip or postal code, country)
-    [x] Assegurar que o endereco e valido para os EUA
-    [x] Informacoes do usuario podem ser editadas no form
-    [x] Botao do PayPal para iniciar o processo de pagamento e esse botao deve ser renderizado pelo SDK do PayPal (paypal.com/sdk/js)
+### Front-end
+- [x] Page containeing Image, description, quantity and price;
+- [x] Form with buyer data(first and last name, email, phone);
+- [x] Form with shipping data (address line 1 and 2, state or province, zip or postal code, country);
+- [x] Ensure the address informed is valid;
+- [x] User data can be edited by the user;
+- [x] PayPal button to start the payment process and it must be rendered by PayPal SDK(paypal.com/sdk/js)
 
-  Back-end
-    [x] utilizar PayPal sandbox
-    [x] Incluir credenciais da conta do PayPal sandbox em um arquivo para verificacao
-    [x] PayPal API que autentica usando oauth2 (client-id and secret keys) deve ser implementado para gerar um token de acesso (on demand or cached) e fazer subsequent API call.
-    [x] Pagamento deve iniciar ao clicar no botao mencionado acima, que iniciara o setup da API do PayPal
-    [x] Informacao do comprador (Dados + Endereco) devem ser transmitidos ao PayPal para evitar que usuario insira essa informacao novamente (Entretanto usuario com endereco de entrega diferente pod eser possivel no checkout)
-    [x] Apos a aprovacao do pagamento pelo PayPal, o servidor deve executar o pagamento de modo a criar a transacao.
-    [x] Uma mensagem de "thank you" apos finalizar a compra
-    [x] Os dados da compra (incluso transaction ID) deve ser mostrada ao usuario na mensagem
-    [] Subir o projeto numa nuvem publica
+### Back-end
+- [x] Use PayPal sandbox;
+- [x] Include PayPal sandbox credentias for verification;
+- [x] PayPal API that authenticate using oauth2 (client-id and secret keys) to generate an access token (on demand or cached) and subsequent API call;
+- [x] Payment must start when user clicks on PayPal button, which will start PayPal API setup;
+- [x] Buyer info (data + address) must be transmited to PayPal to avoid user having to input their info again (although a buyer account with different shipping information might be used for checkout);
+- [x] Once payment is approved by PayPal, the server must execute the payment to create a transation;
+- [x] A thank you message when purchase is complete;
+- [x] Purchase data (transaction ID included) must be included in the message;
+- [] Deploy the project on a cloud service;
