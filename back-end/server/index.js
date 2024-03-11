@@ -11,12 +11,14 @@ app.use(cors())
 app.use(express.json());
 
 app.post("/my-server/create-paypal-order", async (req, res) => {
+  console.log("Received POST request to /my-server/create-paypal-order:", req.body);
   try {
     const order = await paypal.createOrder(req.body);
+    console.log("Response from createOrder:", order);
     res.json(order);
   } catch (error) {
     console.error("Failed to create order:", error);
-    res.status(500).json({ error: "Failed to create order." });
+    res.status(500).json({ error: "Failed to create order:" + error.message });
   }
 });
 
