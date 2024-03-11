@@ -61,7 +61,7 @@ export function PayPalPayment() {
         `, {
           duration: 6000
         });
-      // navigate('/thank-you')
+      // The message will return with my name, because the PayPal sandbox account is under my user.
     })
     .catch((error) => {
       // Handle error
