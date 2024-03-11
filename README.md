@@ -39,6 +39,15 @@ This project is an application that simulates the process of purchasing a produc
 - Address verification is done using the Google Maps library, comparing the user's address with the Google Maps API response.
 -  After the user confirms the payment on PayPal, a message containing the purchase details and transaction ID is promptly displayed to the customer. This provides reassurance and confirmation of the successful transaction.
 
+## Environment Variables
+
+Before running the application, ensure you set up the following environment variables in a .env file:
+
+- PAYPAL_CLIENT_ID: Your PayPal client ID obtained from the PayPal Developer Dashboard.
+- PAYPAL_CLIENT_SECRET: Your PayPal client secret obtained from the PayPal Developer Dashboard.
+
+These environment variables are necessary for the integration with PayPal's APIs.
+
 ## Installation and Usage
 
 - Clone this repository.
