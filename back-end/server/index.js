@@ -2,7 +2,7 @@ import express from "express";
 import * as paypal from '../paypal-api.js';
 import cors from 'cors'
 const PORT = 8888;
-const SERVER_URL = "https://paypal-store-1.onrender.com";
+// const SERVER_URL = "https://paypal-store-1.onrender.com";
 
 const app = express();
 
@@ -22,6 +22,29 @@ app.post("/my-server/create-paypal-order", async (req, res) => {
   }
 });
 
+// Received POST request to /my-server/create-paypal-order: {
+//   product: [
+//     {
+//       description: 'Brand new laptop',
+//       cost: '250.00',
+//       quantity: 1,
+//       sku: 5651251
+//     }
+//   ],
+//   buyerInfo: {
+//     firstName: 'Renato',
+//     lastName: 'Carrino',
+//     email: 'renato@email.com',
+//     phoneNumber: '555111144',
+//     addressLine1: '1130 Bronson Ave',
+//     city: 'Los Angeles',
+//     stateOrProvince: 'CA',
+//     zipOrPostalCode: '90019',
+//     country: 'USA',
+//     addressLine2: ''
+//   }
+// }
+
 app.post("/my-server/capture-paypal-order", async (req, res) => {
   const { orderID } = req.body;
   console.log("orderID de server.js:", orderID)
@@ -34,4 +57,7 @@ app.post("/my-server/capture-paypal-order", async (req, res) => {
   }
 });
 
-console.log(`Server is ready to handle requests at ${SERVER_URL}`);
+app.listen(8888, () => {
+  console.log(`server listening on port ${PORT}`)
+})
+// console.log(`Server is ready to handle requests at ${SERVER_URL}`);

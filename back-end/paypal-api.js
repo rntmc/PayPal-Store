@@ -39,7 +39,7 @@ export async function createOrder(data) {
           reference_id: uuidv4(),
           description: "A brand new computer",
           amount: {
-            description: data.product[0].description, //from PayPalPayment.jsx
+            description: data.product[0].description,
             currency_code: "USD",
             value: Number(data.product[0].cost * data.product[0].quantity), 
             quantity: data.product[0].quantity,
