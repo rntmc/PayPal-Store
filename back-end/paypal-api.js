@@ -24,7 +24,7 @@ async function generateAccessToken() {
 
 export async function createOrder(data) {
   const accessToken = await generateAccessToken();
-  console.log("Dados recebidos em createOrder:", data);
+  console.log("Received data from createOrder:", data);
   const url = `${base}/v2/checkout/orders`
   const response = await fetch(url, {
     method: "post",
@@ -34,14 +34,14 @@ export async function createOrder(data) {
     },
     body: JSON.stringify({
       intent: "CAPTURE",
-      purchase_units: [
+      purchase_units: [ 
         {
           reference_id: uuidv4(),
           description: "A brand new computer",
           amount: {
-            description: data.product[0].description,
+            description: data.product[0].description, //from PayPalPayment.jsx
             currency_code: "USD",
-            value: Number(data.product[0].cost * data.product[0].quantity), //from PayPalPayment.jsx
+            value: Number(data.product[0].cost * data.product[0].quantity), 
             quantity: data.product[0].quantity,
             sku: data.product[0].sku,
           },
@@ -84,7 +84,7 @@ export async function createOrder(data) {
     }),
   });  
   const jsonResponse = await response.json();
-  console.log("jsonResponse:", jsonResponse)
+  console.log("jsonResponse data:", jsonResponse)
   return jsonResponse;
 }
 
@@ -99,6 +99,6 @@ export async function capturePayment(orderId ) {
     },
   });
   const data = await response.json();
-  console.log("Dados do pagamento capturado:", data)
+  console.log("Payment data captured:", data)
   return data;
 }

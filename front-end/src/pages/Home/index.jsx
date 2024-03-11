@@ -55,13 +55,13 @@ export function Home() {
           saveDataToLocalStorage('buyerInfo', buyerInfo);
           alert('Buyer info saved successfully!');
         } else {
-          setError('Endereço inválido. Por favor, verifique e tente novamente.');
+          setError('Invalid address. Please verify and try again.');
         }
       } else {
-        setError('Por favor, preencha todos os campos obrigatórios.');
+        setError('Please fill out all mandatory fields.');
       }
     } catch (error) {
-      setError('Erro ao validar o endereço. Por favor, tente novamente.');
+      setError('Error when validating the address. Please try again.');
     }
   };
 
@@ -73,38 +73,39 @@ export function Home() {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Erro ao validar o endereço. Resposta não foi bem-sucedida.');
+        throw new Error('Address validation error. not successful response.');
       }
       const data = await response.json();
   
       console.log('Response from Google Maps Geocoding API:', data);
   
-      // Verificar se o status da resposta é "OK"
+      // Check if response status is "OK"
       if (data.status === 'OK') {
-        // Verificar se a resposta contém resultados
+        // Check if there are results
         if (data.results.length > 0) {
           // Acessar o endereço formatado
-          const formattedAddress = data.results[0].formatted_address;
-          console.log('Formatted Address:', formattedAddress);
+          const formattedAddress = data.results[0].formatted_address.toLowerCase();
+          console.log('formattedAddress from API:', formattedAddress);
   
           // Verificar se o endereço formatado corresponde ao endereço fornecido pelo usuário
-          const providedAddress = `${addressInfo.addressLine1}, ${addressInfo.city}, ${addressInfo.stateOrProvince} ${addressInfo.zipOrPostalCode}, ${addressInfo.country}`;
-          console.log("providedAddress:", providedAddress)
+          const fullAddress = `${addressInfo.addressLine1}, ${addressInfo.city}, ${addressInfo.stateOrProvince} ${addressInfo.zipOrPostalCode}, ${addressInfo.country}`;
+          const providedAddress = fullAddress.toLowerCase();
+          console.log("ProvidedAddress:", providedAddress)
 
           if (formattedAddress.toLowerCase() === providedAddress.toLowerCase()) {
             // Valid address
             return data;
           } else {
-            throw new Error('Endereço inválido. Por favor, verifique e tente novamente.');
+            throw new Error('Invalid address. Please check and try again.');
           }
         } else {
-          throw new Error('Nenhum resultado encontrado para o endereço fornecido.');
+          throw new Error('No results found for the provided address.');
         }
       } else {
-        throw new Error(`Status da resposta: ${data.status}`);
+        throw new Error(`Response status: ${data.status}`);
       }
     } catch (error) {
-      throw new Error(`Erro ao validar o endereço: ${error.message}`);
+      throw new Error(`Validation address error: ${error.message}`);
     }
 };
 
@@ -123,7 +124,7 @@ export function Home() {
               <img src={productImage} alt="Product" />
               <div>
                 <h2>Product Details</h2>
-                <p>Name: Notebook</p>
+                <p>Name: Brand new laptop</p>
                 <p>Price: $250.00</p>
                 <p>Quantity: 1</p>
                 <p>Sku: 5651251</p>
@@ -164,7 +165,8 @@ export function Home() {
                 name="phoneNumber"
                 value={buyerInfo.phoneNumber}
                 onChange={handleInputChange}
-                placeholder="Phone Number"
+                placeholder="Phone Number (ex: 555111222)"
+                maxLength={9}
               />
               <input
                 type="text"
@@ -178,7 +180,7 @@ export function Home() {
                 name="addressLine2"
                 value={buyerInfo.addressLine2}
                 onChange={handleInputChange}
-                placeholder="Address Line 2"
+                placeholder="Address Line 2 (optional)"
               />
               <input
                 type="text"
@@ -192,7 +194,8 @@ export function Home() {
                 name="stateOrProvince"
                 value={buyerInfo.stateOrProvince}
                 onChange={handleInputChange}
-                placeholder="State or Province"
+                placeholder="State or Province (ex: CA)"
+                maxLength={2}
               />
               <input
                 type="text"
@@ -215,7 +218,7 @@ export function Home() {
           </BuyerInfoSection>
         </Content>
         <Footer>
-          <p>© 2024 Shopping Cart. All rights reserved.</p>
+          <p>© 2024 Shopping Cart</p>
         </Footer>
       </Background>
     </PayPalScriptProvider>

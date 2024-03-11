@@ -32,7 +32,6 @@ export const ProductSection = styled.div`
 background-color: #fff;
 border-radius: 10px;
 padding: 40px;
-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 margin-bottom: 20px;
 max-width: 600px;
 width: 100%;
@@ -42,7 +41,6 @@ export const BuyerInfoSection = styled.div`
 background-color: #fff;
 border-radius: 10px;
 padding: 40px;
-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 max-width: 600px;
 width: 100%;
 `;
@@ -86,5 +84,15 @@ input {
   font-size: 1rem;
   border-radius: 5px;
   border: 1px solid #ccc;
+}
+
+button{
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 `;

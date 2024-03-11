@@ -28,7 +28,7 @@ export function PayPalPayment() {
     })
   .then((response) => response.json())
   .then((order) => {
-    console.log("Resposta de createOrder:", order);
+    console.log("createOrder response:", order);
     return order.id;
   });
   }
@@ -36,7 +36,7 @@ export function PayPalPayment() {
     console.log("onApprove data:", data)
 
     const buyerInfo = JSON.parse(localStorage.getItem('buyerInfo'));
-    console.log("testando o buyerInfo no onApprove:", buyerInfo)
+    console.log("testing buyerInfo on onApprove:", buyerInfo)
 
     return fetch(`${serverUrl}/my-server/capture-paypal-order`, {
       method: "POST",
@@ -50,7 +50,7 @@ export function PayPalPayment() {
     .then((response) => response.json())
     .then((response) => {
       // Show success message
-      console.log("response do onApprove:", response)
+      console.log("onApprove response:", response)
       const paymentValue = response.purchase_units[0].payments.captures[0].amount.value;
       toast.success(`${response.payer.name.given_name + " " + response.payer.name.surname}, thank you for your purchase!\n
         Your order ID is: ${response.id}
@@ -61,7 +61,7 @@ export function PayPalPayment() {
         `, {
           duration: 6000
         });
-      // The message will return with my name, because the PayPal sandbox account is under my user.
+      // The message will be returned with my name, because the PayPal sandbox account is under my user.
     })
     .catch((error) => {
       // Handle error
@@ -74,8 +74,6 @@ export function PayPalPayment() {
     <PayPalButtons
       createOrder={(data, actions) => createOrder(data, actions)}
       onApprove={(data, actions) => onApprove(data, actions)}
-      // createOrder={createOrder}
-      // onApprove={onApprove}
     />
   )
 }
