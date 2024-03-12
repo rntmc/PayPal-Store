@@ -6,12 +6,12 @@ The main objective of this application is to test PayPal payment functionality.
 
 ## Features
 - The customer fills in their details on the initial screen, including name, email, phone number, and full address.
-- Address details are validated using the Google Maps API.
-- If the data passes validation, clicking on the PayPal button initiates the purchase creation process.
+- The user address is validated based on the return of the Google Maps API.
+- If the data passes validation, clicking on the PayPal button initiates the payment process.
 - The user follows the normal PayPal process, entering their registered username and password.
-- The next step is to confirm the purchase details, such as payment method, amount, and address.
+- The next step is to confirm the purchase details, such as payment method, amount, and shipping address.
 - The address is transmitted from the form to the PayPal platform so the user doesn't need to fill in the details again, but they can alter the information if desired.
-- After confirmation by the user, the purchase process is completed with a message returning the user's data and their Transaction ID.
+- After confirmation by the user, the purchase process is completed with a message returning the purchase data and their Transaction ID.
 
 ## Technologies Used
 
@@ -52,8 +52,8 @@ These environment variables are necessary for the integration with PayPal's APIs
 
 ## Access to Deployed Project
 
-- **Frontend**: You can access the deployed version of the frontend application [here](https://paypalstore.netlify.app/).
-- **Backend**: The backend of the application is hosted [here](https://paypal-store-1.onrender.com). To access the API endpoints, use this URL as the base.
+- **Frontend**: The frontend was deployed using Netlify as cloud platform. You can access the deployed version of the frontend application [here](https://paypalstore.netlify.app/).
+- **Backend**: The backend of the application was deployed using Render and the application is hosted [here](https://paypal-store-1.onrender.com). To access the API endpoints, use this URL as the base.
 
 ## Installation and Usage
 
