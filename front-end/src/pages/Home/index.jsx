@@ -137,7 +137,7 @@ export function Home() {
           <BuyerInfoSection>
             <BuyerInfo>
               <h2>Buyer Information</h2>
-              <p> Please fill out every box below to proceed to checkout</p>
+              <p> Please fill out every mandatory box below to proceed to checkout</p>
 
               <input
                 type="text"

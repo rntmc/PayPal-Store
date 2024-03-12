@@ -1,6 +1,8 @@
 # PayPal-Store
 
-This project is an application that simulates the process of purchasing a product using the PayPal payment method. It was developed using the PayPal sandbox environment.
+This project is an application that simulates the process of purchasing a single product using the PayPal payment method. It was developed using the PayPal sandbox environment.
+The main objective of this application is to test PayPal payment functionality.
+
 
 ## Features
 - The customer fills in their details on the initial screen, including name, email, phone number, and full address.
@@ -35,8 +37,8 @@ This project is an application that simulates the process of purchasing a produc
 
 #### Frontend Features
 
-- Data filled by the customer in the form is saved in localStorage for later use.
-- Address verification is done using the Google Maps library, comparing the user's address with the Google Maps API response.
+- The data provided by the customer in the form is saved in localStorage to be used during checkout.
+- The user address is verified by comparing the response received from the Google Maps API with the address provided by the user.
 - After the user confirms the payment on PayPal, a message containing the purchase details and transaction ID is promptly displayed to the customer. This provides reassurance and confirmation of the successful transaction.
 
 ## Environment Variables
@@ -46,12 +48,18 @@ Before running the application, ensure you set up the following environment vari
 - PAYPAL_CLIENT_ID: Your PayPal client ID obtained from the PayPal Developer Dashboard.
 - PAYPAL_CLIENT_SECRET: Your PayPal client secret obtained from the PayPal Developer Dashboard.
 
-These environment variables are necessary for the integration with PayPal's APIs.
+These environment variables are necessary for the integration with PayPal's APIs to generate an access token.
+
+## Access to Deployed Project
+
+- **Frontend**: You can access the deployed version of the frontend application [here](https://paypalstore.netlify.app/).
+- **Backend**: The backend of the application is hosted [here](https://paypal-store-1.onrender.com). To access the API endpoints, use this URL as the base.
 
 ## Installation and Usage
 
+To run this project locally, please follow the below steps:
 - Clone this repository.
-- Install frontend and backend dependencies with npm install.
-- Start the backend server with "npm start".
-- Start the frontend application with "npm run dev".
-- Access the application in your browser at http://localhost:5173.
+- Install frontend and backend dependencies with `npm install`.
+- Start the backend server with `npm start`.
+- Start the frontend application with `npm run dev`.
+- Access the application in your browser at the port provided by the frontend.
