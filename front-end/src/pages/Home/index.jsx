@@ -83,17 +83,17 @@ export function Home() {
       if (data.status === 'OK') {
         // Check if there are results
         if (data.results.length > 0) {
-          // Acessar o endereço formatado
+          // Check formatted address
           const formattedAddress = data.results[0].formatted_address.toLowerCase();
           console.log('formattedAddress from API:', formattedAddress);
   
-          // Verificar se o endereço formatado corresponde ao endereço fornecido pelo usuário
+          // Address provided by the user
           const fullAddress = `${addressInfo.addressLine1}, ${addressInfo.city}, ${addressInfo.stateOrProvince} ${addressInfo.zipOrPostalCode}, ${addressInfo.country}`;
           const providedAddress = fullAddress.toLowerCase();
           console.log("ProvidedAddress:", providedAddress)
 
+          // Compare addresses
           if (formattedAddress.toLowerCase() === providedAddress.toLowerCase()) {
-            // Valid address
             return data;
           } else {
             throw new Error('Invalid address. Please check and try again.');

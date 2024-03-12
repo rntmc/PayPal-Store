@@ -16,10 +16,8 @@ export function PayPalPayment() {
       headers: {
           "Content-Type": "application/json",
       },
-      // use the "body" param to optionally pass additional order information
-      // like product ids and quantities
       body: JSON.stringify({
-        product: [ //cart
+        product: [ 
           {
             description: "Brand new laptop",
             cost: "250.00",
@@ -68,7 +66,6 @@ export function PayPalPayment() {
       // The message will be returned with my name, because the PayPal sandbox account is under my user.
     })
     .catch((error) => {
-      // Handle error
       console.error('Error capturing PayPal order:', error);
       toast.error('Error processing your payment. Please try again.');
     });
