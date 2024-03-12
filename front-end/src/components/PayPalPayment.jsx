@@ -2,7 +2,7 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import toast from 'react-hot-toast'
 
 export function PayPalPayment() {
-  const serverUrl = "https://paypal-store-1.onrender.com"
+  const serverUrl = "http://localhost:8888"
 
   function createOrder(data) {
     const buyerInfo = JSON.parse(localStorage.getItem('buyerInfo'))
