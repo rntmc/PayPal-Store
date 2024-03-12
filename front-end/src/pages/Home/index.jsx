@@ -131,7 +131,7 @@ export function Home() {
               </div>
             </Product>
 
-            <PayPalPayment buyerInfo={buyerInfo}/>
+           <PayPalPayment buyerInfo={buyerInfo}/>}
             
           </ProductSection>
           <BuyerInfoSection>

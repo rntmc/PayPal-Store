@@ -17,4 +17,4 @@
 - [x] Once payment is approved by PayPal, the server must execute the payment to create a transation;
 - [x] A thank you message when purchase is complete;
 - [x] Purchase data (transaction ID included) must be included in the message;
-- [] Deploy the project on a cloud service;
+- [x] Deploy the project on a cloud service;
