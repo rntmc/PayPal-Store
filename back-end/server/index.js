@@ -10,8 +10,8 @@ app.use(cors())
 
 app.use(express.json());
 
-app.post("/my-server/create-paypal-order", async (req, res) => {
-  console.log("Received POST request to /my-server/create-paypal-order:", req.body);
+app.post("/create-paypal-order", async (req, res) => {
+  console.log("Received POST request to /create-paypal-order:", req.body);
   try {
     const order = await paypal.createOrder(req.body);
     console.log("Response from createOrder:", order);
@@ -22,7 +22,7 @@ app.post("/my-server/create-paypal-order", async (req, res) => {
   }
 });
 
-app.post("/my-server/capture-paypal-order", async (req, res) => {
+app.post("/capture-paypal-order", async (req, res) => {
   const { orderID } = req.body;
   console.log("orderID de server.js:", orderID)
   try {

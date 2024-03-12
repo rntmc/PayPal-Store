@@ -2,6 +2,7 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import toast from 'react-hot-toast'
 
 export function PayPalPayment() {
+  // const serverUrl = "https://localhost:8888" to run the project locally
   const serverUrl = "https://paypal-store-1.onrender.com"
 
   function createOrder(data) {
@@ -11,7 +12,7 @@ export function PayPalPayment() {
       return;
     }
 
-    return fetch(`${serverUrl}/my-server/create-paypal-order`, {
+    return fetch(`${serverUrl}/create-paypal-order`, {
       method: "POST",
       headers: {
           "Content-Type": "application/json",
@@ -40,7 +41,7 @@ export function PayPalPayment() {
     const buyerInfo = JSON.parse(localStorage.getItem('buyerInfo'));
     console.log("testing buyerInfo on onApprove:", buyerInfo)
 
-    return fetch(`${serverUrl}/my-server/capture-paypal-order`, {
+    return fetch(`${serverUrl}/capture-paypal-order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
