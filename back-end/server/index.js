@@ -10,6 +10,11 @@ app.use(cors())
 
 app.use(express.json());
 
+// test route
+app.get('/ping', (req, res) => {
+  res.send('OK');
+});
+
 app.post("/my-server/create-paypal-order", async (req, res) => {
   console.log("Received POST request to /my-server/create-paypal-order:", req.body);
   try {
