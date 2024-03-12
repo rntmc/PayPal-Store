@@ -1,7 +1,7 @@
 import express from "express";
 import * as paypal from '../paypal-api.js';
 import cors from 'cors'
-// const PORT = 8888;
+const PORT = 8888;
 // const SERVER_URL = "https://paypal-store-1.onrender.com";
 
 const app = express();
@@ -39,7 +39,7 @@ app.post("/my-server/capture-paypal-order", async (req, res) => {
   }
 });
 
-// app.listen(8888, () => {
-//   console.log(`server listening on port ${PORT}`)
-// })
+app.listen(8888, () => {
+  console.log(`server listening on port ${PORT}`)
+})
 // console.log(`Server is ready to handle requests at ${SERVER_URL}`);
