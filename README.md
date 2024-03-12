@@ -52,7 +52,7 @@ These environment variables are necessary for the integration with PayPal's APIs
 
 ## Access to Deployed Project
 
-- **Frontend**: The frontend was deployed using Netlify as cloud platform. You can access the deployed version of the frontend application [(https://paypalstore.netlify.app/)](https://main--paypalstore.netlify.app/).
+- **Frontend**: The frontend was deployed using Netlify as cloud platform. You can access the deployed version of the frontend application [(https://main--paypalstore.netlify.app/)](https://main--paypalstore.netlify.app/).
 - **Backend**: The backend of the application was deployed using Render and the application is hosted [here](https://paypal-store-1.onrender.com). To access the API endpoints, use this URL as the base.
 
 ## Installation and Usage
