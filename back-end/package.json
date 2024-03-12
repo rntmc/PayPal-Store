@@ -1,7 +1,7 @@
 {
   "name": "back-end",
   "version": "1.0.0",
-  "description": "",
+  "description": "Project to test PayPal payment",
   "type": "module",
   "engines": {
     "node": "20.x"
