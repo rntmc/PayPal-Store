@@ -61,7 +61,7 @@ export function Home() {
         setError('Please fill out all mandatory fields.');
       }
     } catch (error) {
-      setError('Error when validating the address. Please try again.');
+      setError('Address not valid. Please check and try again.');
     }
   };
 
