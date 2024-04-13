@@ -8,7 +8,6 @@ import {PayPalPayment} from '../../components/PayPalPayment'
 import productImage from '../../assets/laptop.jpg';
 
 export function Home() {
-  const [error, setError] = useState('');
 
   const initialOptions = {
     clientId: "ATm10hXzzOxe-ZwrZRQY5fsj_tJ6h_FLztLTWsgeKm61hfORI4jmhC0X8Me790nOq_c1OrsEfxSBIUaz",
@@ -55,13 +54,13 @@ export function Home() {
           saveDataToLocalStorage('buyerInfo', buyerInfo);
           alert('Buyer info saved successfully!');
         } else {
-          setError('Invalid address. Please verify and try again.');
+          toast.error('Invalid address. Please verify and try again.');
         }
       } else {
-        setError('Please fill out all mandatory fields.');
+        toast.error('Please fill out all mandatory fields.');
       }
     } catch (error) {
-      setError('Address not valid. Please check and try again.');
+      toast.error('Address not valid. Please check and try again.');
     }
   };
 
@@ -212,7 +211,6 @@ export function Home() {
                 placeholder="Country"
                 disabled 
               />
-              {error && <p style={{ color: 'red', fontSize: '18px', fontWeight: 'bold' }}>{error}</p>}
               <button onClick={handleSave} type='button'>Save</button>
             </BuyerInfo>
           </BuyerInfoSection>
