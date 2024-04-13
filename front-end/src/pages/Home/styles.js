@@ -51,8 +51,9 @@ align-items: center;
 margin-bottom: 20px;
 
 img {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: auto;
+  max-width: 200px;
   margin-right: 20px;
   border-radius: 5px;
   object-fit: cover;
