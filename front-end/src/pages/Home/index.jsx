@@ -36,7 +36,6 @@ export function Home() {
 
   // Save data
   const handleSave = async () => {
-    setError('');
     try {
       if (
         buyerInfo.firstName.trim() !== "" &&
