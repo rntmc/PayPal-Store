@@ -10,7 +10,7 @@ import productImage from '../../assets/laptop.jpg';
 export function Home() {
 
   const initialOptions = {
-    clientId: "ATm10hXzzOxe-ZwrZRQY5fsj_tJ6h_FLztLTWsgeKm61hfORI4jmhC0X8Me790nOq_c1OrsEfxSBIUaz",
+    clientId: "",
     currency: "USD",
     intent: "capture",
   };
@@ -64,7 +64,7 @@ export function Home() {
   };
 
   const validateAddress = async (addressInfo) => {
-    const apiKey = 'AIzaSyBeNCyfRVOgIW_F2QNeDjZtLBRrkolF9GQ';
+    const apiKey = '';
     const addressString = `${addressInfo.addressLine1}, ${addressInfo.city}, ${addressInfo.stateOrProvince}, ${addressInfo.zipOrPostalCode}, ${addressInfo.country}`;
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(addressString)}&key=${apiKey}`;
   
